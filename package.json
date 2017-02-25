@@ -16,7 +16,7 @@
     "aliyun",
     "ali-oss"
   ],
-  "author": "Murry Diao <diaomouren@gmail.com>",
+  "author": "BigMurry <hhdiao@siom.ac.cn.com>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/BigMurry/gulp-oss-sync/issues"
