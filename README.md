@@ -9,6 +9,10 @@ Use local cache file to store last published file path and file hash. If the fil
 ## Screen shots
 ![screen shot](https://raw.githubusercontent.com/bigmurry/gulp-oss-sync/master/test/capture.jpeg)
 
+## Features
+- Use cache file to save network traffic
+- Automatic delete useless file in OSS
+
 ## How to use
 
 ```js
