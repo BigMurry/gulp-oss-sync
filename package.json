@@ -1,0 +1,34 @@
+{
+  "name": "gulp-oss-sync",
+  "version": "0.0.1",
+  "description": "A gulp plugin to sync files with Aliyun OSS",
+  "main": "index.js",
+  "scripts": {
+    "test": "gulp --gulpfile test/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BigMurry/gulp-oss-sync.git"
+  },
+  "keywords": [
+    "oss",
+    "gulp",
+    "aliyun",
+    "ali-oss"
+  ],
+  "author": "Murry Diao <diaomouren@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/BigMurry/gulp-oss-sync/issues"
+  },
+  "homepage": "https://github.com/BigMurry/gulp-oss-sync#readme",
+  "dependencies": {
+    "ali-oss": "^4.8.0",
+    "co": "^4.6.0",
+    "gulp-util": "^3.0.8",
+    "through2": "^2.0.3"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1"
+  }
+}
