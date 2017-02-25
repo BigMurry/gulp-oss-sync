@@ -3,6 +3,8 @@ A gulp plugin to sync files with Aliyun OSS
 
 Inspired by [gulp-awspublish](https://github.com/pgherveou/gulp-awspublish)
 
+[![NPM](https://nodei.co/npm/gulp-oss-sync.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/gulp-oss-sync/)
+
 ## Introduction
 Use local cache file to store last published file path and file hash. If the file is in the cache file and the hash is unchanged, then ignore this file.
 
