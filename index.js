@@ -9,6 +9,7 @@ const through = require('through2');
 const crypto = require('crypto');
 const mime = require('mime');
 const gutil = require('gulp-util');
+const Spinner = require('cli-spinner').Spinner;
 
 var PLUGIN_NAME = 'gulp-oss-sync';
 
@@ -72,23 +73,34 @@ function report (newCache, oldCache) {
     rep: '[replace]',
     del: '[deleted]'
   };
+  const count = {
+    new: 0,
+    ign: 0,
+    rep: 0,
+    del: 0
+  };
   Object.keys(newCache).forEach(function (path) {
     let state;
     if (!oldCache.hasOwnProperty(path)) {
       state = gutil.colors.green(s.new);
+      count.new++;
     } else if (oldCache[path] === newCache[path]) {
       state = gutil.colors.grey(s.ign);
+      count.ign++;
     } else {
       state = gutil.colors.yellow(s.rep);
+      count.rep++;
     }
     gutil.log(state, path);
   });
   Object.keys(oldCache).forEach(function (path) {
     if (!newCache.hasOwnProperty(path)) {
       let state = gutil.colors.red(s.del);
+      count.del++;
       gutil.log(state, path);
     }
   });
+  gutil.log(`created: ${gutil.colors.green(count.new)}; ignored: ${gutil.colors.grey(count.ign)}; updated: ${gutil.colors.yellow(count.rep)}; deleted: ${gutil.colors.red(count.del)}`);
 }
 
 /**
@@ -161,8 +173,12 @@ Publisher.prototype.push = function () {
     return saveCache(_newCache, _this.getCacheFilename());
   };
   let counter = 0;
+  const spinner = new Spinner('Now publish files ... %s');
+  spinner.setSpinnerString('|/-\\');
+  spinner.start();
 
   function onFinish () {
+    spinner.stop(true);
     storeCache();
     if (!options || options.noClean) return;
     const objs = Object.keys(_oldCache)

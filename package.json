@@ -24,6 +24,7 @@
   "homepage": "https://github.com/BigMurry/gulp-oss-sync#readme",
   "dependencies": {
     "ali-oss": "^4.8.0",
+    "cli-spinner": "^0.2.6",
     "co": "^4.6.0",
     "gulp-util": "^3.0.8",
     "through2": "^2.0.3"
