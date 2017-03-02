@@ -134,10 +134,18 @@ function Publisher (ossConfig, cacheOptions) {
     : '.oss-cache-' + bucket;
 
   // load cache
-  try {
-    this._oldCache = JSON.parse(fs.readFileSync(this.getCacheFilename(), 'utf8'));
-  } catch (err) {
-    this._oldCache = {};
+  if (ossConfig.setting.force) {
+    try {
+      fs.unlinkSync(this.getCacheFilename());
+    } catch (err) {} finally {
+      this._oldCache = {};
+    }
+  } else {
+    try {
+      this._oldCache = JSON.parse(fs.readFileSync(this.getCacheFilename(), 'utf8'));
+    } catch (err) {
+      this._oldCache = {};
+    }
   }
 }
 
@@ -220,7 +228,7 @@ Publisher.prototype.push = function () {
       _newCache[file.oss.path] = etag;
 
       // check if file is identical as the one in cache
-      if (!options.force && _this._oldCache[file.oss.path] === etag) {
+      if (_this._oldCache[file.oss.path] === etag) {
         file.oss.state = 'cache';
         return cb(null, file);
       } else {

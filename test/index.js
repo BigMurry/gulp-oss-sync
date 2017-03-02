@@ -11,3 +11,9 @@ gulp.task('default', () => {
   gulp.src(['**/*.js', '!index.js'], {cwd: './'})
     .pipe(ossSync(ossConf, cacheConf));
 });
+
+gulp.task('force', () => {
+  ossConf.setting.force = true;
+  gulp.src(['**/*.js', '!index.js'], {cwd: './'})
+    .pipe(ossSync(ossConf, cacheConf));
+});
