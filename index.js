@@ -237,8 +237,8 @@ Publisher.prototype.push = function () {
 
       if (options.simulate) return cb(null, file);
 
-      const controls = Object.assign({}, _this.config.controls, {headers: file.oss.headers});
-
+      const controls = _this.config.controls || {};
+      controls.headers = Object.assign({}, controls.headers, file.oss.headers);
       co(function* () {
         yield _this.client.put(`${_this.config.setting.dir}/${file.oss.path}`, file.contents, controls);
         if (++counter % 10 === 0) storeCache();
