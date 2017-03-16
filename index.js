@@ -253,6 +253,7 @@ Publisher.prototype.push = function () {
         cb(null, file);
       }).catch(function (err) {
         cb(err, file);
+        spinner.stop(true);
       });
     }
   });
