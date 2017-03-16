@@ -1,6 +1,6 @@
 {
   "name": "gulp-oss-sync",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "A gulp plugin to sync files with Aliyun OSS",
   "main": "index.js",
   "scripts": {
