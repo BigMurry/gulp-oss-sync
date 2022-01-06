@@ -15,6 +15,11 @@ const Spinner = require('cli-spinner').Spinner;
 
 var PLUGIN_NAME = 'gulp-oss-sync';
 
+function charsets(mimeType, fallback) {
+    // Assume text types are utf8
+    return (/^text\/|^application\/(javascript|json)/).test(mimeType) ? 'UTF-8' : fallback;
+}
+
 /**
  * calculate file hash
  * @param  {Buffer} buf
@@ -39,8 +44,8 @@ function md5Hash (buf) {
  */
 
 function getContentType (file) {
-  var mimeType = mime.lookup(file.unzipPath || file.path);
-  var charset = mime.charsets.lookup(mimeType);
+  var mimeType = mime.getType(file.unzipPath || file.path);
+  var charset = charsets(mimeType);
 
   return charset
     ? mimeType + '; charset=' + charset.toLowerCase()

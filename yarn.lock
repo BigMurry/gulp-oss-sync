@@ -1687,10 +1687,20 @@
     "snapdragon" "^0.8.1"
     "to-regex" "^3.0.2"
 
-"mime@^2.4.5", "mime@^2.5.2":
+"mime@^2.4.5":
   "integrity" "sha512-USPkMeET31rOMiarsBNIHZKLGgvKc/LrjofAnBlOttf5ajRvqiRA8QsenbcooctK6d6Ts6aqZXBA+XbkKthiQg=="
   "resolved" "https://registry.npmjs.org/mime/-/mime-2.6.0.tgz"
   "version" "2.6.0"
+
+"mime@^2.5.2":
+  "integrity" "sha512-USPkMeET31rOMiarsBNIHZKLGgvKc/LrjofAnBlOttf5ajRvqiRA8QsenbcooctK6d6Ts6aqZXBA+XbkKthiQg=="
+  "resolved" "https://registry.npmjs.org/mime/-/mime-2.6.0.tgz"
+  "version" "2.6.0"
+
+"mime@^3.0.0":
+  "integrity" "sha512-jSCU7/VB1loIWBZe14aEYHU/+1UMEHoaO7qxCOVJOw9GgH72VAWppxNcjU+x9a2k3GSIBXNKxXQFqRvvZ7vr3A=="
+  "resolved" "https://registry.npmjs.org/mime/-/mime-3.0.0.tgz"
+  "version" "3.0.0"
 
 "minimatch@^3.0.4":
   "integrity" "sha512-yJHVQEhyqPLUTgt9B83PXu6W3rx4MvvHvSUvToogpwoGDOUQ+yDrR0HRot+yOCdCO7u4hX3pWft6kWBBcqh0UA=="
