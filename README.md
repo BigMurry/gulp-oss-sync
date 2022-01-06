@@ -37,7 +37,8 @@ const ossConf = {
     dir: "foo/bar", // root directory name
     noClean: false, // compare with the last cache file to decide if the file deletion is need
     force: false, // ignore cache file and force re-upload all the files
-    quiet: true // quiet option for oss deleteMulti operation
+    quiet: true, // quiet option for oss deleteMulti operation
+    fileName: (path)=> { return path } // modify oss file path
   }
 };
 const cacheConf = {
