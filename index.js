@@ -53,11 +53,12 @@ function getContentType (file) {
  * @api private
  */
 
-function initFile (file) {
+function initFile (file, callback) {
+  callback = callback || function (str) { return str; };
   if (!file.oss) {
     file.oss = {};
     file.oss.headers = {};
-    file.oss.path = file.relative.replace(/\\/g, '/');
+    file.oss.path = callback(file.relative.replace(/\\/g, '/'));
   }
   return file;
 }
@@ -219,7 +220,7 @@ Publisher.prototype.push = function () {
 
     // check if file.contents is a `Buffer`
     if (file.isBuffer()) {
-      initFile(file);
+      initFile(file, _this.config.setting.fileName);
 
       // calculate etag
       etag = '"' + md5Hash(file.contents) + '"';
