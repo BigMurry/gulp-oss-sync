@@ -8,10 +8,17 @@ const fs = require('fs');
 const through = require('through2');
 const crypto = require('crypto');
 const mime = require('mime');
-const gutil = require('gulp-util');
+const log = require('fancy-log');
+const colors = require('ansi-colors');
+const PluginError = require('plugin-error');
 const Spinner = require('cli-spinner').Spinner;
 
 var PLUGIN_NAME = 'gulp-oss-sync';
+
+function charsets(mimeType, fallback) {
+    // Assume text types are utf8
+    return (/^text\/|^application\/(javascript|json)/).test(mimeType) ? 'UTF-8' : fallback;
+}
 
 /**
  * calculate file hash
@@ -37,8 +44,8 @@ function md5Hash (buf) {
  */
 
 function getContentType (file) {
-  var mimeType = mime.lookup(file.unzipPath || file.path);
-  var charset = mime.charsets.lookup(mimeType);
+  var mimeType = mime.getType(file.unzipPath || file.path);
+  var charset = charsets(mimeType);
 
   return charset
     ? mimeType + '; charset=' + charset.toLowerCase()
@@ -83,25 +90,25 @@ function report (newCache, oldCache) {
   Object.keys(newCache).forEach(function (path) {
     let state;
     if (!oldCache.hasOwnProperty(path)) {
-      state = gutil.colors.green(s.new);
+      state = colors.green(s.new);
       count.new++;
     } else if (oldCache[path] === newCache[path]) {
-      state = gutil.colors.grey(s.ign);
+      state = colors.grey(s.ign);
       count.ign++;
     } else {
-      state = gutil.colors.yellow(s.rep);
+      state = colors.yellow(s.rep);
       count.rep++;
     }
-    gutil.log(state, path);
+    log(state, path);
   });
   Object.keys(oldCache).forEach(function (path) {
     if (!newCache.hasOwnProperty(path)) {
-      let state = gutil.colors.red(s.del);
+      let state = colors.red(s.del);
       count.del++;
-      gutil.log(state, path);
+      log(state, path);
     }
   });
-  gutil.log(`created: ${gutil.colors.green(count.new)}; ignored: ${gutil.colors.grey(count.ign)}; updated: ${gutil.colors.yellow(count.rep)}; deleted: ${gutil.colors.red(count.del)}`);
+  log(`created: ${colors.green(count.new)}; ignored: ${colors.grey(count.ign)}; updated: ${colors.yellow(count.rep)}; deleted: ${colors.red(count.del)}`);
 }
 
 /**
@@ -199,7 +206,7 @@ Publisher.prototype.push = function () {
       co(function* () {
         yield _this.client.deleteMulti(objs, {quiet: options.quiet});
       }).catch(function (err) {
-        gutil.log('[Cleanup failed]', err);
+        log('[Cleanup failed]', err);
       });
     }
     report(_newCache, _oldCache);
@@ -214,7 +221,7 @@ Publisher.prototype.push = function () {
     // streams not supported
     if (file.isStream()) {
       this.emit('error',
-        new gutil.PluginError(PLUGIN_NAME, 'Stream content is not supported'));
+        new PluginError(PLUGIN_NAME, 'Stream content is not supported'));
       return cb();
     }
 
